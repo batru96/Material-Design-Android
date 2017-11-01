@@ -13,10 +13,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_appbar)
 
         toolbar = findViewById(R.id.app_bar)
         setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        val drawerFragment: NavigationDrawerFragment =
+                supportFragmentManager.findFragmentById(R.id.fragment_navigation_drawer) as NavigationDrawerFragment
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, findViewById(R.id.drawer_layout), toolbar)
     }
 
     //region Methods
