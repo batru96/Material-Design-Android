@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MaterialDesign</string>
+    <string name="action_settings">Setting</string>
+    <string name="next">Next</string>
+    <string name="sub_activity">SubActivity</string>
+    <string name="main_activity">MainActivity</string>
+</resources>
