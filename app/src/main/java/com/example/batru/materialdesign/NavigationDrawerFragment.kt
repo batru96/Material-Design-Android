@@ -1,23 +1,30 @@
 package com.example.batru.materialdesign
 
-
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.batru.materialdesign.adapter.VivzAdapter
+import com.example.batru.materialdesign.models.Infomation
 
+@Suppress("DEPRECATION")
 class NavigationDrawerFragment : Fragment() {
     private lateinit var mDrawerToggle: ActionBarDrawerToggle
     private lateinit var mDrawerLayout: DrawerLayout
     private var mUserLearnedDrawer: Boolean = false
     private var mFromSaveInstanceSave: Boolean = false
     private lateinit var containerView: View
+    private lateinit var adapter: VivzAdapter
 
     companion object {
         val PREF_FILE_NAME = "testpref"
@@ -34,6 +41,16 @@ class NavigationDrawerFragment : Fragment() {
             val sharePreferences: SharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
             return sharePreferences.getString(preferencesName, defaultValue)
         }
+
+        fun getData(): ArrayList<Infomation> {
+            val data: ArrayList<Infomation> = arrayListOf()
+            val icons: IntArray = intArrayOf(R.drawable.ic_number1, R.drawable.ic_number2, R.drawable.ic_number3, R.drawable.ic_number4)
+            val titles: ArrayList<String> = arrayListOf("Tuna", "Bacon", "Bucky", "Boston")
+            for ((index) in titles.withIndex()) {
+                data.add(Infomation(icons[index], titles[index]))
+            }
+            return data
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +64,12 @@ class NavigationDrawerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_navigation_drawer, container, false)
+        val layout: View = inflater!!.inflate(R.layout.fragment_navigation_drawer, container, false)
+        val recyclerView: RecyclerView = layout.findViewById(R.id.listMeo)
+        adapter = VivzAdapter(activity, getData())
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        return layout
     }
 
     fun setUp(fragmentId: Int, drawerLayout: DrawerLayout, toolbar: Toolbar) {
@@ -70,7 +92,7 @@ class NavigationDrawerFragment : Fragment() {
 
             override fun onDrawerSlide(drawerView: View?, slideOffset: Float) {
                 if (slideOffset < 0.6) {
-                    toolbar.alpha = 1- slideOffset
+                    toolbar.alpha = 1 - slideOffset
                 }
             }
         }
