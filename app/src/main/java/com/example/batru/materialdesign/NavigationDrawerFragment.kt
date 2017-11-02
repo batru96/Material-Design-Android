@@ -27,7 +27,6 @@ class NavigationDrawerFragment : Fragment() {
             val sharePreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sharePreferences.edit()
             editor.putString(preferencesName, preferencesValue)
-
             editor.apply()
         }
 
@@ -39,7 +38,7 @@ class NavigationDrawerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mUserLearnedDrawer = readFromPreferences(activity, KEY_USER_LEARNED_DRAWER, "false").toBoolean()
+        mUserLearnedDrawer = readFromPreferences(activity, KEY_USER_LEARNED_DRAWER, "true").toBoolean()
         if (savedInstanceState != null) {
             mFromSaveInstanceSave = true
         }
@@ -83,7 +82,6 @@ class NavigationDrawerFragment : Fragment() {
             override fun run() {
                 mDrawerToggle.syncState()
             }
-
         })
     }
 }

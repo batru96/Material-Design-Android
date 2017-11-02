@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_appbar)
+        setContentView(R.layout.activity_main)
 
         toolbar = findViewById(R.id.app_bar)
         setSupportActionBar(toolbar)
